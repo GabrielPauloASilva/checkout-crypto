@@ -19,7 +19,7 @@ Este projeto expõe duas rotas principais:
 ## Instalação local
 1. Clone o repositório:
 ```bash
-git clone https://github.com/SEU_USUARIO/checkout-crypto.git
+git clone https://github.com/GabrielPauloASilva/checkout-crypto.git
 cd checkout-crypto
 Instale dependências:
 
