@@ -1,17 +1,28 @@
 import express from "express";
 import fetch from "node-fetch";
 import { ethers } from "ethers";
-import cors from 'cors';
-app.use(cors({ origin: ['https://sualoja.myshopify.com', 'https://www.sualoja.myshopify.com'] }));
+import cors from "cors";
+import dotenv from "dotenv";
+
+dotenv.config(); // ✅ carrega variáveis do .env
 
 const app = express();
 app.use(express.json());
 
+// habilita CORS apenas para sua loja
+app.use(cors({
+  origin: [
+    "https://sualoja.myshopify.com",
+    "https://www.sualoja.myshopify.com"
+  ]
+}));
+
 // ⚙️ Configurações
-const MERCHANT_ADDRESS = process.env.MERCHANT_ADDRESS; // sua carteira fixa
+const MERCHANT_ADDRESS = process.env.MERCHANT_ADDRESS; 
 const SHOPIFY_API_KEY = process.env.SHOPIFY_API_KEY;
 const SHOPIFY_API_SECRET = process.env.SHOPIFY_API_SECRET;
-const SHOPIFY_STORE = process.env.SHOPIFY_STORE; // ex: nome-da-loja.myshopify.com
+const SHOPIFY_STORE = process.env.SHOPIFY_STORE; 
+
 
 // RPCs grátis para múltiplas redes
 const RPCS = {
@@ -92,4 +103,10 @@ app.post("/api/verify", async (req, res) => {
   }
 });
 
-app.listen(3000, () => console.log("Backend rodando na porta 3000"));
+
+// quando roda local
+if (process.env.NODE_ENV !== "production") {
+  app.listen(3000, () => console.log("Backend rodando na porta 3000"));
+}
+
+export default app; // ✅ para Vercel
